@@ -1,13 +1,6 @@
-import "reflect-metadata";
-import express, { json } from "express";
-import "./database";
-import router from "./routes";
-
-const app = express();
-
-app.use(express.json());
-app.use(router);
+import app from './app'
 
 app.listen(3333, () => {
+
   console.log("server started on port 3333");
 });
