@@ -1,4 +1,4 @@
-import { FindRelationsNotFoundError, getCustomRepository } from "typeorm";
+import {  getCustomRepository } from "typeorm";
 import { Request, Response } from "express";
 import SurveysRepository from "../repository/SurveysRepository";
 
