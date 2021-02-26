@@ -1,4 +1,5 @@
 import request from 'supertest';
+import {getConnection} from 'typeorm'
 import app from "../app";
 
 import createConnection from "../database";
@@ -12,6 +13,12 @@ describe("Users", () => {
     //cria e retorn um migartion
     await connection.runMigrations();
   });
+
+  afterAll(async()=>{
+    const connection = getConnection();
+    await getConnection().dropDatabase();
+    await connection.close()
+  })
 
   //teste de criação de usuário
   it("Should be able to crate a new user", async () => {
