@@ -23,6 +23,6 @@ router.post("/sendEmail", sendEmailController.execute );
 router.get("/surveys", surveysController.show);
 router.get("/answers/:value", answersController.execute);
 
-router.get("/nps/:surver_id", npsController.execute)
+router.get("/nps/:surveys_id", npsController.execute)
 
 export default router;

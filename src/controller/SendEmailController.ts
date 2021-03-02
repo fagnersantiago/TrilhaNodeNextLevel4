@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
-import { resolve } from "path";
+import path from "path";
+import env from "../config/config";
 import UserRepository from "../repository/UsersRepository";
 import SurveyRepository from "../repository/SurveysRepository";
 import SurveysUsersRepository from "../repository/SurveysUsersRepository";
 import SendEmailService from "../services/SendEmailServices";
-import AppError from "../errors/appError";
+import AppError from "../errors/AppError";
 
 class SendEmailController {
   async execute(request: Request, response: Response) {
@@ -29,7 +30,13 @@ class SendEmailController {
       throw new AppError(" User does not exists!");
     }
 
-    const npsPath = resolve(__dirname, "..", "view", "email", "npsEmail.hbs");
+    const npsPath = path.resolve(
+      __dirname,
+      "..",
+      "view",
+      "email",
+      "npsEmail.hbs"
+    );
 
     const surveysUserExists = await surveyUserRepository.findOne({
       where: { user_id: user.id, value: null },
@@ -41,8 +48,10 @@ class SendEmailController {
       title: survey.title,
       description: survey.description,
       id: "",
-      link: process.env.URL_MAIL,
+      link: env.URL_MAIL,
     };
+
+    console.log(variables);
 
     if (surveysUserExists) {
       variables.id = surveysUserExists.id;
